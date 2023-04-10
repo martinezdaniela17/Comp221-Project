@@ -22,4 +22,10 @@ dijkstraAlgo
 # 12:	if alt < dist[v]	// Relax (u,v)
 # 13:	dist[v] := alt
 # 14:	previous[v] := u
-# 15:	return previous[ ]
+
+class Node:
+    def __init__(self,name):
+        self.name = name
+        self.edges = []
+    def add_edge(self,node,weight):
+        self.edges.append(node,weight)

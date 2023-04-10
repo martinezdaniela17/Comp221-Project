@@ -2,13 +2,19 @@ import math
 #Goal: Write a program that randomly generates a graph that has a set amount of nodes and weighted edges
     # It'll print out a thing that shows the best and lowest weighted path to go through out the graph
 
-def dijkstraAlgo():
-    posInfinity = float('inf')
+def dijkstraAlgo(Graph, source):
+    maxHit = 3000
+    allNodes = []
+    smallDist = source
     for vert in Graph:
-        math.dist[vert] = posInfinity
-    print(posInfinity)
+        math.dist[vert] = maxHit #initial distance from the source to vert is going the set to max
+        previous[vert] = undef
+        math.dist[source] = 0 #distance from the source ot the source
+        allNodes.append(vert) #placing all of the nodes inside the loop
+        
 
-dijkstraAlgo
+    
+
 # 2:	for each vertex v in Graph:	// Initialization
 # 3:	dist[v] := infinity	// initial distance from source to vertex v is set to infinite
 # 4:	previous[v] := undefined	// Previous node in optimal path from source

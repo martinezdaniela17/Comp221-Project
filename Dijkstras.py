@@ -1,0 +1,2 @@
+#Goal: Write a program that randomly generates a graph that has a set amount of nodes and weighted edges
+    # It'll print out a thing that shows the best and lowest weighted path to go through out the graph

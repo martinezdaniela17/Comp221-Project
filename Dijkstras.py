@@ -1,4 +1,5 @@
 import math
+import random
 #Goal: Write a program that randomly generates a graph that has a set amount of nodes and weighted edges
     # It'll print out a thing that shows the best and lowest weighted path to go through out the graph
 
@@ -11,23 +12,44 @@ def dijkstraAlgo(Graph, source):
         previous[vert] = undef
         math.dist[source] = 0 #distance from the source ot the source
         allNodes.append(vert) #placing all of the nodes inside the loop
-        
+        while len(allNodes) == 0:
+            u = allNodes.smallDist
+            Q.remove(u)
+            for each neighbor:
+               newDist = dist[u] + totalDistance #from the neighbor function (not yet defined)
+               if newDist < dist[neighbor]:
+                   dist[neighbor] = newDist
+                   previous[neighbor] = u
 
+
+#create function for neighbhors of node, take in Node and Edges (2 params)
+    #create neighbors = null
+    #pair = [Node, neighbors]
+    #if node has edges
+        # check to see nodes connected to edge 
+        # set vertex to node
+        #if pair has been visted
+            #change neighbor to another
+        #total distance = dist(Node, neighbor)
+    #else if node has no edges
+        # go back one node
+    #return total distance
     
+def createGraph(numberNode):
+    options = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    graph0 = Graph
+    for i in range(numberNode):
+        new_node = Node(options[i])
+        graph0.add_node(new_node)
+    for Node in graph0.nodes:
+        number_edges = random.randint(1,4)
+        for i in range(number_edges):
+            random_node = graph0.nodes[random.randint(0,graph0.size)]
+            Node.edges.append(random_node,random.randint(1,15))
 
-# 2:	for each vertex v in Graph:	// Initialization
-# 3:	dist[v] := infinity	// initial distance from source to vertex v is set to infinite
-# 4:	previous[v] := undefined	// Previous node in optimal path from source
-# 5:	dist[source] := 0	// Distance from source to source
-# 6:	Q := the set of all nodes in Graph	// all nodes in the graph are unoptimized - thus are in Q
-# 7:	while Q is not empty:	// main loop
-# 8:	u := node in Q with smallest dist[ ]
-# 9:	remove u from Q
-# 10:	for each neighbor v of u:	// where v has not yet been removed from Q.
-# 11:	alt := dist[u] + dist_between(u, v)
-# 12:	if alt < dist[v]	// Relax (u,v)
-# 13:	dist[v] := alt
-# 14:	previous[v] := u
+
+
+        
 
 class Node:
     def __init__(self,name):
@@ -35,3 +57,13 @@ class Node:
         self.edges = []
     def add_edge(self,node,weight):
         self.edges.append(node,weight)
+
+class Graph:
+    def __init__(self):
+        self.nodes = []
+        self.size = 0
+    def add_node(self,Node):
+        self.nodes.append(Node)
+        self.size += 1
+        
+    

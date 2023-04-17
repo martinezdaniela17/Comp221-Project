@@ -3,10 +3,13 @@ import random
 #Goal: Write a program that randomly generates a graph that has a set amount of nodes and weighted edges
     # It'll print out a thing that shows the best and lowest weighted path to go through out the graph
 
+"""dijkstraAlgo will take in the given graph and a source node. """
+
 def dijkstraAlgo(Graph, source):
     maxHit = 3000
     allNodes = []
     smallDist = source
+    visited_nodes = []
     for vert in Graph:
         math.dist[vert] = maxHit #initial distance from the source to vert is going the set to max
         previous[vert] = undef
@@ -15,11 +18,14 @@ def dijkstraAlgo(Graph, source):
         while len(allNodes) == 0:
             u = allNodes.smallDist
             Q.remove(u)
-            for each neighbor:
-               newDist = dist[u] + totalDistance #from the neighbor function (not yet defined)
-               if newDist < dist[neighbor]:
-                   dist[neighbor] = newDist
-                   previous[neighbor] = u
+            neighbors = vert.edges.node
+            for neighbor in neighbors:
+                if neighbor not in visited_nodes:
+                    newDist = dist[u] + totalDistance #from the neighbor function (not yet defined)
+                    if newDist < dist[neighbor]:
+                        dist[neighbor] = newDist
+                        previous[neighbor] = u
+                        visited_nodes.append(neighbor)
 
 
 #create function for neighbhors of node, take in Node and Edges (2 params)
@@ -34,6 +40,19 @@ def dijkstraAlgo(Graph, source):
     #else if node has no edges
         # go back one node
     #return total distance
+
+#Delete it if it's not necessary
+# def neighbor(node):
+#     neighbors = Null;
+#     pair = [node, neighbors]
+#     vert = Null;
+#     if node.edges.isempty() == False:
+#         vert = node
+#         totDist = math.dist(node, neighbor)
+#     else:
+#         #go to previous node
+#         pass
+
     
 def createGraph(numberNode):
     options = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

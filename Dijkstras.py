@@ -6,26 +6,44 @@ import random
 """dijkstraAlgo will take in the given graph and a source node. """
 
 def dijkstraAlgo(Graph, source):
-    maxHit = 3000
-    allNodes = []
+    maxHit = 3000 #Using a number we won't end up reaching
+    allNodes = [] #Creating a list of all the nodes that'll be used
+    visited_nodes = [] #Creating a list for all of the visted nodes
+    previous = source #SHOULD THIS BE A LIST? #Variable to contain the previous node.
     smallDist = source
-    visited_nodes = []
+    totalDistance = math.dist(Node, neighbor) #Var to keep the distance of the node and the neighbor
     for vert in Graph:
         math.dist[vert] = maxHit #initial distance from the source to vert is going the set to max
-        previous[vert] = undef
+        previous = vert
         math.dist[source] = 0 #distance from the source ot the source
         allNodes.append(vert) #placing all of the nodes inside the loop
-        while len(allNodes) == 0:
+        while len(allNodes) == 0: #This while loops purpose is to remove the smallest distance between nodes from the allNodes list
             u = allNodes.smallDist
-            Q.remove(u)
+            allNodes.remove(u)
             neighbors = vert.edges.node
             for neighbor in neighbors:
-                if neighbor not in visited_nodes:
-                    newDist = dist[u] + totalDistance #from the neighbor function (not yet defined)
-                    if newDist < dist[neighbor]:
-                        dist[neighbor] = newDist
+                if neighbor not in visited_nodes: #If the neighbor isn't in the visted nodes, update the distance
+                    newDist = math.dist[u] + totalDistance
+                    if newDist < math.dist[neighbor]: #If the newDist is less than the dist in neighbor, add the neighbor to the visitedNodes
+                        math.dist[neighbor] = newDist
                         previous[neighbor] = u
                         visited_nodes.append(neighbor)
+
+
+def neighOfNode(Node, edges):
+    neighbors = Null
+    pair = [Node, neighbors]
+    current = Node
+    previous = Null
+    if node.has_edge(*pair):
+        #set vertex to node
+        if pair in visited_nodes:
+            #change the neighbor to another
+        totalDistance = math.dist(Node, neighbor)
+    else:
+        current = previous
+    return totalDistance
+
 
 
 #create function for neighbhors of node, take in Node and Edges (2 params)
@@ -52,6 +70,7 @@ def dijkstraAlgo(Graph, source):
 #     else:
 #         #go to previous node
 #         pass
+
 
     
 def createGraph(numberNode):

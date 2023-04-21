@@ -5,29 +5,32 @@ import random
 
 """dijkstraAlgo will take in the given graph and a source node. """
 
+import math
+
 def dijkstraAlgo(Graph, source):
     maxHit = 3000 #Using a number we won't end up reaching
     allNodes = [] #Creating a list of all the nodes that'll be used
-    visited_nodes = [] #Creating a list for all of the visted nodes
-    previous = source #SHOULD THIS BE A LIST? #Variable to contain the previous node.
-    smallDist = source
-    totalDistance = math.dist(Node, neighbor) #Var to keep the distance of the node and the neighbor
-    for vert in Graph:
-        math.dist[vert] = maxHit #initial distance from the source to vert is going the set to max
-        previous = vert
-        math.dist[source] = 0 #distance from the source ot the source
-        allNodes.append(vert) #placing all of the nodes inside the loop
-        while len(allNodes) == 0: #This while loops purpose is to remove the smallest distance between nodes from the allNodes list
-            u = allNodes.smallDist
-            allNodes.remove(u)
-            neighbors = vert.edges.node
-            for neighbor in neighbors:
-                if neighbor not in visited_nodes: #If the neighbor isn't in the visted nodes, update the distance
-                    newDist = math.dist[u] + totalDistance
-                    if newDist < math.dist[neighbor]: #If the newDist is less than the dist in neighbor, add the neighbor to the visitedNodes
-                        math.dist[neighbor] = newDist
-                        previous[neighbor] = u
-                        visited_nodes.append(neighbor)
+    visited_nodes = [] #Creating a list for all of the visited nodes
+    previous = {} #Variable to contain the previous node.
+    dist = {} #Dictionary to store the distance to each node from the source
+    for node in Graph:
+        dist[node] = maxHit #initial distance from the source to node is set to maxHit
+        previous[node] = None
+        allNodes.append(node) #placing all of the nodes inside the loop
+    dist[source] = 0 #distance from the source to the source is 0
+    while allNodes: #This while loop's purpose is to remove the smallest distance between nodes from the allNodes list
+        u = min(allNodes, key=lambda x: dist[x])
+        allNodes.remove(u)
+        neighbors = u.edges
+        for neighbor, weight in neighbors:
+            if neighbor not in visited_nodes: #If the neighbor isn't in the visited nodes, update the distance
+                newDist = dist[u] + weight
+                if newDist < dist[neighbor]: #If the newDist is less than the dist in neighbor, update the distance
+                    dist[neighbor] = newDist
+                    previous[neighbor] = u
+        visited_nodes.append(u)
+    return dist, previous
+
 
 
 def neighOfNode(Node, edges):

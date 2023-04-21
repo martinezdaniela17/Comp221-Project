@@ -5,12 +5,10 @@ import random
 
 """dijkstraAlgo will take in the given graph and a source node. """
 
-import math
-
 def dijkstraAlgo(Graph, source):
     maxHit = 3000 #Using a number we won't end up reaching
-    allNodes = [] #Creating a list of all the nodes that'll be used
-    visited_nodes = [] #Creating a list for all of the visited nodes
+    allNodes = [] #Creating a list of all the nodes that'll be used and visited
+    visited_nodes = []
     previous = {} #Variable to contain the previous node.
     dist = {} #Dictionary to store the distance to each node from the source
     for node in Graph:
@@ -29,23 +27,7 @@ def dijkstraAlgo(Graph, source):
                     dist[neighbor] = newDist
                     previous[neighbor] = u
         visited_nodes.append(u)
-    return dist, previous
-
-
-
-def neighOfNode(Node, edges):
-    neighbors = Null
-    pair = [Node, neighbors]
-    current = Node
-    previous = Null
-    if node.has_edge(*pair):
-        #set vertex to node
-        if pair in visited_nodes:
-            #change the neighbor to another
-        totalDistance = math.dist(Node, neighbor)
-    else:
-        current = previous
-    return totalDistance
+    return dist
 
 
 
@@ -63,16 +45,16 @@ def neighOfNode(Node, edges):
     #return total distance
 
 #Delete it if it's not necessary
-# def neighbor(node):
-#     neighbors = Null;
-#     pair = [node, neighbors]
-#     vert = Null;
-#     if node.edges.isempty() == False:
-#         vert = node
-#         totDist = math.dist(node, neighbor)
-#     else:
-#         #go to previous node
-#         pass
+def neighbor(node):
+    neighbors = Null
+    pair = [node, neighbors]
+    vert = Null
+    if node.edges.isempty() == False:
+        vert = node
+        totDist = math.dist(node, neighbor)
+    else:
+        #go to previous node
+        pass
 
 
     
@@ -80,13 +62,14 @@ def createGraph(numberNode):
     options = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     graph0 = Graph
     for i in range(numberNode):
-        new_node = Node(options[i])
+        new_node = Node(options[i]) ##ERROR STARTS HERE
         graph0.add_node(new_node)
     for Node in graph0.nodes:
         number_edges = random.randint(1,4)
         for i in range(number_edges):
             random_node = graph0.nodes[random.randint(0,graph0.size)]
             Node.edges.append(random_node,random.randint(1,15))
+    return graph0
 
 
 
@@ -107,4 +90,8 @@ class Graph:
         self.nodes.append(Node)
         self.size += 1
         
+if __name__ == '__main__':
+    graph_test = createGraph(5)
+    node1 = graph_test.nodes[0]
+    dijkstraAlgo(createGraph(5), node1)
     

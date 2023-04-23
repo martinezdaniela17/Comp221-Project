@@ -1,97 +1,109 @@
 import math
 import random
+
+# Node class represents a node in the graph
+class Node:
+    def __init__(self, name):
+        # Each node has a name and a list of edges
+        self.name = name
+        self.edges = []
+    # Method to add an edge to the node
+    def add_edge(self, node, weight):
+        # An edge is a tuple of the neighbor node and its weight
+        self.edges.append((node, weight))
+    # This method returns the name of the node when it is printed
+    def __repr__(self):
+        return self.name
+# Graph class represents a graph
+class Graph:
+    def __init__(self):
+        # A graph has a list of nodes and a size attribute
+        self.nodes = []
+        self.size = 0
+    # Method to add a node to the graph
+    def add_node(self,Node):
+        # Add the node to the list of nodes and increment the size of the graph
+        self.nodes.append(Node)
+        self.size += 1
 #Goal: Write a program that randomly generates a graph that has a set amount of nodes and weighted edges
     # It'll print out a thing that shows the best and lowest weighted path to go through out the graph
 
 """dijkstraAlgo will take in the given graph and a source node. """
 
-def dijkstraAlgo(Graph, source):
-    maxHit = 3000 #Using a number we won't end up reaching
-    allNodes = [] #Creating a list of all the nodes that'll be used and visited
-    visited_nodes = []
-    previous = {} #Variable to contain the previous node.
-    dist = {} #Dictionary to store the distance to each node from the source
-    for node in Graph:
-        dist[node] = maxHit #initial distance from the source to node is set to maxHit
+def dijkstraAlgo(graph, source):
+    # Set a maximum value for distance
+    maxHit = 3000
+    # Initialize sets and dictionaries for visited nodes, previous nodes, and distances
+    visited_nodes = set()
+    previous = {}
+    dist = {}
+    # Set the distance of each node to the source node to be the maximum value, and previous node to be none
+    for node in graph.nodes:
+        dist[node] = maxHit
         previous[node] = None
-        allNodes.append(node) #placing all of the nodes inside the loop
-    dist[source] = 0 #distance from the source to the source is 0
-    while allNodes: #This while loop's purpose is to remove the smallest distance between nodes from the allNodes list
+    # Set the distance of the source node to be 0
+    dist[source] = 0
+    # Create a set of all nodes in the graph
+    allNodes = set(graph.nodes)
+    # Loop through the nodes until all have been visited
+    while allNodes:
+        # Get the node with the smallest distance
         u = min(allNodes, key=lambda x: dist[x])
+        # Remove the node from the set of all nodes
         allNodes.remove(u)
+        # Get the neighbors of the node and their weights
         neighbors = u.edges
+        # Loop through the neighbors and update their distances and previous nodes if a shorter path is found
         for neighbor, weight in neighbors:
-            if neighbor not in visited_nodes: #If the neighbor isn't in the visited nodes, update the distance
-                newDist = dist[u] + weight
-                if newDist < dist[neighbor]: #If the newDist is less than the dist in neighbor, update the distance
-                    dist[neighbor] = newDist
-                    previous[neighbor] = u
-        visited_nodes.append(u)
+            newDist = dist[u] + weight
+            if newDist < dist[neighbor]:
+                dist[neighbor] = newDist
+                previous[neighbor] = u
+            # Add the neighbor to the set of all nodes if it hasn't been visited yet
+            if neighbor not in visited_nodes:
+                allNodes.add(neighbor)
+        # Add the node to the set of visited nodes
+        visited_nodes.add(u)
+    # Return the dictionary of distances from the source node to all other nodes
     return dist
 
 
 
-#create function for neighbhors of node, take in Node and Edges (2 params)
-    #create neighbors = null
-    #pair = [Node, neighbors]
-    #if node has edges
-        # check to see nodes connected to edge 
-        # set vertex to node
-        #if pair has been visted
-            #change neighbor to another
-        #total distance = dist(Node, neighbor)
-    #else if node has no edges
-        # go back one node
-    #return total distance
-
-#Delete it if it's not necessary
-def neighbor(node):
-    neighbors = Null
-    pair = [node, neighbors]
-    vert = Null
-    if node.edges.isempty() == False:
-        vert = node
-        totDist = math.dist(node, neighbor)
-    else:
-        #go to previous node
-        pass
-
-
-    
 def createGraph(numberNode):
+    # Create a string of uppercase letters to use as node names
     options = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    graph0 = Graph
+    # Create an empty graph
+    graph0 = Graph()
+    # Add nodes to the graph using the letter names
     for i in range(numberNode):
-        new_node = Node(options[i]) ##ERROR STARTS HERE
+        new_node = Node(options[i])
         graph0.add_node(new_node)
-    for Node in graph0.nodes:
-        number_edges = random.randint(1,4)
+    # Keep track of nodes that have already been connected to other nodes
+    connected_nodes = set()
+    for node in graph0.nodes:
+        # Choose a random number of edges to add to this node (between 1 and 4)
+        number_edges = random.randint(1, 4)
+        # Add the current node to the set of connected nodes
+        connected_nodes.add(node)
+        # Loop over the number of edges to add to this node
         for i in range(number_edges):
-            random_node = graph0.nodes[random.randint(0,graph0.size)]
-            Node.edges.append(random_node,random.randint(1,15))
+            # Find all nodes that have not yet been connected to the current node
+            unconnected_nodes = set(graph0.nodes) - connected_nodes
+            # If there are still unconnected nodes left, choose one at random
+            if len(unconnected_nodes) > 0:
+                random_node = random.sample(unconnected_nodes, 1)[0]
+                # Add an edge between the current node and the randomly chosen node,
+                # with a random weight between 1 and 15
+                node.add_edge(random_node, random.randint(1, 15))
+                # Add the randomly chosen node to the set of connected nodes
+                connected_nodes.add(random_node)
+    # Return the completed graph
     return graph0
 
 
 
-        
-
-class Node:
-    def __init__(self,name):
-        self.name = name
-        self.edges = []
-    def add_edge(self,node,weight):
-        self.edges.append(node,weight)
-
-class Graph:
-    def __init__(self):
-        self.nodes = []
-        self.size = 0
-    def add_node(self,Node):
-        self.nodes.append(Node)
-        self.size += 1
-        
 if __name__ == '__main__':
     graph_test = createGraph(5)
     node1 = graph_test.nodes[0]
-    dijkstraAlgo(createGraph(5), node1)
+    print(dijkstraAlgo(graph_test, node1))
     

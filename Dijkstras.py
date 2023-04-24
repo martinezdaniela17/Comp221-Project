@@ -29,7 +29,7 @@ class Graph:
 """dijkstraAlgo will take in the given graph and a source node. """
 
 def dijkstraAlgo(graph, source):
-    maxHit = 3000 # Set a maximum value for distance
+    maxHit = 1000 # Set a maximum value for distance
     # Initialize sets and dictionaries for visited nodes, previous nodes, and distances
     visited_nodes = set()
     previous = {}
@@ -64,6 +64,7 @@ def createGraph(numberNode):
     for i in range(numberNode):
         new_node = Node(options[i])
         graph0.add_node(new_node)
+        ##Create visual node
     connected_nodes = set() # Keep track of nodes that have already been connected to other nodes
     for node in graph0.nodes:
         number_edges = random.randint(1, 4) # Choose a random number of edges to add to this node
@@ -81,7 +82,13 @@ def createGraph(numberNode):
 
 
 if __name__ == '__main__':
-    graph_test = createGraph(5)
+    userInput = int(input("How many nodes would you like? Enter an integer between 2 and 26: "))
+    #PUT FOR LOOP TO CONTINUE ASKING
+    if 2 <= userInput <= 26: #If it's between 2 and 26, it'll be fine, else it'll ask again.
+        pass
+    else:
+        userInput = int(input("How many nodes would you like? Enter an integer between 2 and 26: "))
+    graph_test = createGraph(userInput) #Allows the user to add the amount of nodes they want
     node1 = graph_test.nodes[0]
     print(dijkstraAlgo(graph_test, node1))
     

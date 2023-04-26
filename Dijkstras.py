@@ -1,5 +1,7 @@
 import math
 import random
+import turtle
+
 
 class Node:
     def __init__(self, name):
@@ -58,6 +60,11 @@ def dijkstraAlgo(graph, source):
 
 
 def createGraph(numberNode):
+    t = turtle
+    t.screensize(canvwidth = 500, canvheight = 500, bg = "WHITE") #Making the screen for the graphs
+    t.up()
+    t.goto(-225, 25)
+    t.down()
     options = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  # Create a string of uppercase letters to use as node names
     graph0 = Graph() # Create an empty graph
     # Add nodes to the graph using the letter names
@@ -65,6 +72,14 @@ def createGraph(numberNode):
         new_node = Node(options[i])
         graph0.add_node(new_node)
         ##Create visual node
+        t.fillcolor("PINK")
+        t.begin_fill()
+        t.circle(25) 
+        t.end_fill()
+        t.up()
+        t.forward(90)
+        t.down()
+        ##Do an if statement for the possibility of the circle that hits the edge, start at a new row
     connected_nodes = set() # Keep track of nodes that have already been connected to other nodes
     for node in graph0.nodes:
         number_edges = random.randint(1, 4) # Choose a random number of edges to add to this node
@@ -77,6 +92,7 @@ def createGraph(numberNode):
                 random_node = random.sample(unconnected_nodes, 1)[0]
                 node.add_edge(random_node, random.randint(1, 15)) # Add an edge between the current node and the randomly chosen node
                 connected_nodes.add(random_node) # Add the randomly chosen node to the set of connected nodes
+    t.exitonclick()
     return graph0 # Return the completed graph
 
 
@@ -91,4 +107,3 @@ if __name__ == '__main__':
     graph_test = createGraph(userInput) #Allows the user to add the amount of nodes they want
     node1 = graph_test.nodes[0]
     print(dijkstraAlgo(graph_test, node1))
-    

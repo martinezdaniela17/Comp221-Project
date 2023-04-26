@@ -71,16 +71,7 @@ def createGraph(numberNode):
     for i in range(numberNode):
         new_node = Node(options[i])
         graph0.add_node(new_node)
-        ##Create visual node
-        t.fillcolor("PINK")
-        t.begin_fill()
-        t.circle(25) 
-        t.end_fill()
-        t.up()
-        t.forward(90)
-        t.down()
-        ##Do an if statement for the possibility of the circle that hits the edge, start at a new row
-    connected_nodes = set() # Keep track of nodes that have already been connected to other nodes
+        connected_nodes = set() # Keep track of nodes that have already been connected to other nodes
     for node in graph0.nodes:
         number_edges = random.randint(1, 4) # Choose a random number of edges to add to this node
         connected_nodes.add(node) # Add the current node to the set of connected nodes

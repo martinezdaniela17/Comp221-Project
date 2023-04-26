@@ -1,6 +1,9 @@
 # Comp221-Project
 
-Link to help us visualize dijkstra: https://stackoverflow.com/questions/48103119/drawing-a-network-with-nodes-and-edges-in-python3
+Link to help us visualize dijkstra: 
+https://stackoverflow.com/questions/48103119/drawing-a-network-with-nodes-and-edges-in-python3
+https://towardsdatascience.com/visualizing-networks-in-python-d70f4cbeb259
+https://pyvis.readthedocs.io/en/latest/index.html
 
 Link to help with graph stuff: https://networkx.org/documentation/stable/reference/classes/generated/networkx.Graph.has_edge.html
 

@@ -6,6 +6,9 @@ from pyvis.network import Network #Ask for help onto why this isn't working!
 #https://networkx.org/documentation/stable/reference/classes/generated/networkx.Graph.add_edge.html
 #https://pyvis.readthedocs.io/en/latest/tutorial.html#getting-started
 
+
+#Fix the code that adds the nodes and neighbors, causes issues
+
 net = Network()
 
 class Node:
@@ -38,7 +41,7 @@ class Graph:
 def dijkstraAlgo(graph, source):
     maxHit = 1000 # Set a maximum value for distance
     # Initialize sets and dictionaries for visited nodes, previous nodes, and distances
-    visited_nodes = set()
+    visited_nodes = []
     previous = {}
     dist = {}
     for node in graph.nodes: # Set the distance of each node to the source node to be the maximum value, and previous node to be none
@@ -46,20 +49,25 @@ def dijkstraAlgo(graph, source):
         previous[node] = None
     dist[source] = 0 # Set the distance of the source node to be 0
     allNodes = set(graph.nodes) # Create a set of all nodes in the graph
-    while allNodes: # Loop through the nodes until all have been visited
-        u = min(allNodes, key=lambda x: dist[x])# Get the node with the smallest distance
-        allNodes.remove(u) # Remove the node from the set of all nodes
+    # print(graph.nodes, type(graph.nodes))
+    while len(graph.nodes)!=0: # Loop through the nodes until all have been visited
+        u = min(graph.nodes, key=lambda x: dist[x])# Get the node with the smallest distance
+        graph.nodes.remove(u) # Remove the node from the set of all nodes
         neighbors = u.edges # Get the neighbors of the node and their weights
+        # print(u.edges, type(u.edges))
         # Loop through the neighbors and update their distances and previous nodes if a shorter path is found
         for neighbor, weight in neighbors:
             newDist = dist[u] + weight
-            if newDist < dist[neighbor]:
+            print("Neighbors: ", neighbors, " and type: ", type(neighbors))
+            if newDist < dist[neighbor][0][0]:
                 dist[neighbor] = newDist
                 previous[neighbor] = u
             # Add the neighbor to the set of all nodes if it hasn't been visited yet
             if neighbor not in visited_nodes:
-                allNodes.add(neighbor)
-        visited_nodes.add(u) # Add the node to the set of visited nodes
+                print("hello!")
+                # allNodes.add(neighbor)
+                graph.nodes.add(neighbor)
+        visited_nodes.append(u) # Add the node to the set of visited nodes
     return dist # Return the dictionary of distances from the source node to all other nodes
 
 
@@ -77,14 +85,16 @@ def createGraph(numberNode):
         new_node = Node(options[i])
         graph0.add_node(new_node)
         connected_nodes = set() # Keep track of nodes that have already been connected to other nodes
-        net.add_node([new_node], label = "Node " + i, color = "#c74") #Added this line for pyvis
+        net.add_node(new_node.name, label = "Node " + str(i), color = "#c74") #Added this line for pyvis
     for node in graph0.nodes:
         number_edges = random.randint(1, 4) # Choose a random number of edges to add to this node
         connected_nodes.add(node) # Add the current node to the set of connected nodes
         # Loop over the number of edges to add to this node
         for i in range(number_edges):
+            # print("Num edges: ", number_edges)
             unconnected_nodes = set(graph0.nodes) - connected_nodes # Find all nodes that have not yet been connected to the current node
-            node.add_edge(new_node, connected_nodes, weight) #Fix this
+            weight = random.randint(1,20)
+            node.add_edge(connected_nodes, weight) #Fix this
             # If there are still unconnected nodes left, choose one at random
             if len(unconnected_nodes) > 0:
                 random_node = random.sample(unconnected_nodes, 1)[0]

@@ -2,6 +2,10 @@
 
 The purpose of this project is to implement Dijktra's algorithm and to return the weight to get to each. In "Dijkstras.py" we build the entire algorithm and "playingWDijkstras.py" we attempt to make the visual of the graph.
 
+# HOW TO RUN:
+
+All you need is to press the play button on the "Dijkstras.py". Make sure to have the "random" package downloaded. In the terminal, the program will prompt the user to input a number between the values of 2 and 26, in which it will tell you the path and weight to each node. 
+
 # DIJKSTRAS:
 
 The purpose of Dijkstra is to return the lightest weighted path around a graph. The Dijkstra file contains 2 classes, Node and Graph. 

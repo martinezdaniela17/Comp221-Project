@@ -1,7 +1,5 @@
 import math
 import random
-import turtle
-
 
 class Node:
     def __init__(self, name):
@@ -60,11 +58,6 @@ def dijkstraAlgo(graph, source):
 
 
 def createGraph(numberNode):
-    t = turtle
-    t.screensize(canvwidth = 500, canvheight = 500, bg = "WHITE") #Making the screen for the graphs
-    t.up()
-    t.goto(-225, 25)
-    t.down()
     options = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"  # Create a string of uppercase letters to use as node names
     graph0 = Graph() # Create an empty graph
     # Add nodes to the graph using the letter names
@@ -83,18 +76,18 @@ def createGraph(numberNode):
                 random_node = random.sample(unconnected_nodes, 1)[0]
                 node.add_edge(random_node, random.randint(1, 15)) # Add an edge between the current node and the randomly chosen node
                 connected_nodes.add(random_node) # Add the randomly chosen node to the set of connected nodes
-    t.exitonclick()
     return graph0 # Return the completed graph
 
 
 
 if __name__ == '__main__':
     userInput = int(input("How many nodes would you like? Enter an integer between 2 and 26: "))
-    #PUT FOR LOOP TO CONTINUE ASKING
-    if 2 <= userInput <= 26: #If it's between 2 and 26, it'll be fine, else it'll ask again.
-        pass
-    else:
-        userInput = int(input("How many nodes would you like? Enter an integer between 2 and 26: "))
-    graph_test = createGraph(userInput) #Allows the user to add the amount of nodes they want
-    node1 = graph_test.nodes[0]
-    print(dijkstraAlgo(graph_test, node1))
+    while True:
+        if 2 <= userInput <= 26: #If it's between 2 and 26, it'll be fine, else it'll ask again.
+            graph_test = createGraph(userInput) #Allows the user to add the amount of nodes they want
+            node1 = graph_test.nodes[0]
+            print(dijkstraAlgo(graph_test, node1))
+            break
+        else:
+            userInput = int(input("How many nodes would you like? Enter an integer between 2 and 26: "))
+    
